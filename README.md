@@ -1,5 +1,26 @@
 # shell
 
-AutoAccounting 的 shell 模块（从 AutoAccountingOrg/AutoAccounting 拆分，保留历史）
+Android Root / Shizuku 命令执行库（从 AutoAccountingOrg/AutoAccounting 拆分，保留历史）。
 
-作为 Git 子模块在 AutoAccounting 中使用，构建依赖宿主工程的 version catalog (libs)。
+- `lib/`：库模块（`net.ankio.shell.Shell`）
+- `app/`：示例应用
+
+## 使用
+
+```kotlin
+// settings.gradle.kts: maven { url = uri("https://jitpack.io") }
+implementation("com.github.AnkioTomas:shell:<tag>")
+```
+
+```kotlin
+val shell = Shell(context.packageName)
+if (!shell.checkPermission()) shell.requestPermission()
+val out = shell.exec("id")   // 优先 Root，其次 Shizuku
+shell.close()
+```
+
+## 构建
+
+```bash
+./gradlew build
+```
